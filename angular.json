@@ -17,7 +17,8 @@
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
               "node_modules/@coreui/icons/css/coreui-icons.css",
@@ -31,7 +32,8 @@
             },
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js"
-            ]
+            ],
+            "serviceWorker": true
           },
           "configurations": {
             "production": {
@@ -90,9 +92,7 @@
               "includePaths": ["./node_modules"]
             },
             "assets": [
-              "src/assets",
-              "src/favicon.ico",
-              "src/manifest.json"
+              "src/assets"
             ]
           }
         },
