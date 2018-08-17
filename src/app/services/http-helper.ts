@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { NotificationsService } from 'angular2-notifications';
 import 'rxjs/add/operator/toPromise';
@@ -13,10 +13,10 @@ import { environment } from '../../environments/environment';
 
 class Request {
   private httpArgs: any[];
-  private observableResponse: Observable<Response>;
+  private observableResponse: Observable<HttpResponse<any>>;
 
   constructor(
-    private http: Http,
+    private httpClient: HttpClient,
     private notifications: NotificationsService,
     private method: string,
     private path: string,
@@ -24,27 +24,33 @@ class Request {
     private opts: Object,
   ) {
     const url = this.url(path, opts['searches']);
-    const options = new RequestOptions({
-      headers: this.headers,
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
       withCredentials: true
-    });
+    };
     const data = humps.decamelizeKeys(rawData);
     this.httpArgs = _.compact([url, data, options]);
   }
 
   run(): Request {
-    this.observableResponse = this.http[this.method](...this.httpArgs);
+    this.observableResponse = this.httpClient[this.method](...this.httpArgs);
     return this;
   }
 
   response(): Promise<any> {
-    return this.observableResponse.map(res => humps.camelizeKeys(res.json()))
+    return this.run().observableResponse.map(res => humps.camelizeKeys(res))
       .toPromise()
       .catch((reason) => {
         if (reason.status >= 400) {
           this.notifications.error(reason.statusText, reason.json().errors || 'Failure');
         }
       });
+  }
+
+  getResponse(): Promise<any> {
+    return this.response();
   }
 
   private url(path: string, searches?: Object): string {
@@ -56,21 +62,15 @@ class Request {
       _.mapValues(humps.decamelizeKeys(searches), val => JSON.stringify(val))
     )}` : '';
   }
-
-  private get headers(): Headers {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return headers;
-  }
 }
 
 
 @Injectable()
-export class HttpClient {
-  public _useLoader: boolean = false;
+export class HttpHelper {
+  public _useLoader = false;
 
   constructor(
-    private http: Http,
+    private httpClient: HttpClient,
     private spinner: Spinner,
     private notifications: NotificationsService
   ) {
@@ -93,10 +93,10 @@ export class HttpClient {
   }
 
   private async request(method, path, rawData, opts = {}): Promise<any> {
-    const request = new Request(this.http, this.notifications, method, path, rawData, opts);
+    const request = new Request(this.httpClient, this.notifications, method, path, rawData, opts);
     this.spinner.isActive = true;
-    const result = await request.run().response();
+    const result: Promise<any> = await request.getResponse();
     this.spinner.isActive = false;
-    return result
+    return result;
   }
 }

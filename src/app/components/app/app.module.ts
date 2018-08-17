@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app.routing';
 
 import {
   ServiceLocator,
-  HttpClient,
+  HttpHelper,
   Spinner,
   AuthGuard
 } from '../../services';
@@ -49,7 +49,7 @@ export function sessionFactory() {
       useFactory: sessionFactory,
       deps: []
     },
-    HttpClient,
+    HttpHelper,
     AuthGuard,
     Spinner,
   ],

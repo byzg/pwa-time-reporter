@@ -2,7 +2,7 @@ import * as pluralize from 'pluralize';
 import * as _ from 'lodash';
 
 import { ServiceLocator } from './service-locator';
-import { HttpClient } from './http-client';
+import { HttpHelper } from './http-helper';
 
 interface IUrlMap {
   index: () => string
@@ -21,7 +21,7 @@ export class RestClient {
     destroy: 'delete'
   };
 
-  private httpClient: HttpClient = ServiceLocator.injector.get(HttpClient);
+  private httpClient: HttpHelper = ServiceLocator.injector.get(HttpHelper);
   private plural: string;
   private urlMap: IUrlMap;
 
@@ -58,6 +58,7 @@ export class RestClient {
 
   private action(actionName: string, attributes?): Promise<any> {
     const url = this.urlMap[actionName](attributes && attributes.id);
-    return this.httpClient[RestClient.actionTypeMap[actionName]](url, _.omit(attributes, 'id'));
+    const actionType = RestClient.actionTypeMap[actionName];
+    return this.httpClient[actionType](url, _.omit(attributes, 'id'));
   }
 }
