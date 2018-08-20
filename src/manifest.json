@@ -1,7 +1,7 @@
 {
-  "name": "pwa-time-reporter",
-  "short_name": "KodepReporter",
-  "description": "Generates Kodep time reports",
+  "name": "wishme-frontend",
+  "short_name": "WishMe",
+  "description": "Wishlist for you and you friends",
   "icons": [
     {
       "src": "assets/icons/android-icon-36x36.png",

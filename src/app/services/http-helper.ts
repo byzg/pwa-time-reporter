@@ -27,8 +27,7 @@ class Request {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
-      }),
-      withCredentials: true
+      })
     };
     const data = humps.decamelizeKeys(rawData);
     this.httpArgs = _.compact([url, data, options]);

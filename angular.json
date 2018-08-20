@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng": {
+    "wishme-frontend": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -58,18 +58,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng:build"
+            "browserTarget": "wishme-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng:build:production"
+              "browserTarget": "wishme-frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng:build"
+            "browserTarget": "wishme-frontend:build"
           }
         },
         "test": {
@@ -119,7 +119,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "ng:serve"
+            "devServerTarget": "wishme-frontend:serve"
           }
         },
         "lint": {
@@ -136,7 +136,7 @@
       }
     }
   },
-  "defaultProject": "ng",
+  "defaultProject": "wishme-frontend",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
