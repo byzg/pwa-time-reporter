@@ -10,6 +10,7 @@ import { BaseCollection } from '../../resourses/collections/base-collection';
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
+  path = 'routes.login'
   sessionForm: SessionForm;
 
   constructor(public session: Session, public router: Router) { }

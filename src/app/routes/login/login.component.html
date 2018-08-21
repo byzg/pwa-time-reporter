@@ -7,21 +7,23 @@
             <div class="card p-4">
               <div class="card-body">
                 <form [formGroup]="sessionForm.group" *ngIf="sessionForm">
-                  <h1>Вход</h1>
-                  <p class="text-muted">Войдите в Ваш аккаунт</p>
+                  <h1>{{ '.title' | t:path }}</h1>
+                  <p class="text-muted">{{ '.subtitle' | t:path }}</p>
                   <fieldset formGroupName="user">
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="icon-user"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Email"
+                      <input class="form-control"
+                             [placeholder]="'.placeholders.email' | t:path"
                              formControlName="email" required>
                     </div>
                     <div class="input-group mb-4">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="icon-lock"></i></span>
                       </div>
-                      <input type="password" class="form-control" placeholder="Пароль"
+                      <input type="password" class="form-control"
+                             [placeholder]="'.placeholders.password' | t:path"
                              formControlName="password" required>
                     </div>
                   </fieldset>
@@ -29,11 +31,13 @@
                     <div class="col-6">
                       <button type="button" class="btn btn-primary px-4"
                               [disabled]="!sessionForm.group.valid" (click)="save()">
-                        Вход
+                        {{ '.submit' | t:path }}
                       </button>
                     </div>
                     <div class="col-6 text-right">
-                      <button type="button" class="btn btn-link px-0">Регистрация</button>
+                      <button type="button" class="btn btn-link px-0">
+                        {{ '.registration' | t:path }}
+                      </button>
                     </div>
                   </div>
                 </form>

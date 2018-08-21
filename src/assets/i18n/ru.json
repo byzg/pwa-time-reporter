@@ -1,0 +1,14 @@
+{
+  "routes": {
+    "login": {
+      "title": "Вход",
+      "subtitle": "Войдите в Ваш аккаунт",
+      "submit": "Войти",
+      "registration": "Регистрация",
+      "placeholders": {
+        "email": "Email",
+        "password": "Пароль"
+      }
+    }
+  }
+}
