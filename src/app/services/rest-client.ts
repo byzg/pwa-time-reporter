@@ -21,9 +21,9 @@ export class RestClient {
     destroy: 'delete'
   };
 
+  public urlMap: IUrlMap;
   private httpClient: HttpHelper = ServiceLocator.injector.get(HttpHelper);
   private plural: string;
-  private urlMap: IUrlMap;
 
   constructor(public resourceName: string) {
     this.plural = pluralize(resourceName);

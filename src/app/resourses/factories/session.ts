@@ -9,9 +9,16 @@ const tokenKey = 'Auth-Token';
 
 @Injectable()
 export class Session extends BaseFactory {
-  localStorage = new LocalStorage('currentUser');
   user: User = new User(this.localStorage.pull());
   protected readonly _name: string = 'session';
+  private _localStorage: LocalStorage;
+
+  constructor(data: Object = {}) {
+    super(data);
+    Object.assign(this.restClient.urlMap, {
+      create: () => 'auth/sign_in',
+    });
+  }
 
   isLoggedIn(): boolean {
     return false;
@@ -31,5 +38,16 @@ export class Session extends BaseFactory {
     this.localStorage.remove();
     this.user = new User();
     // Cookies.remove(tokenKey);
+  }
+
+  get localStorage() {
+    if (!this._localStorage) {
+      this._localStorage = new LocalStorage('currentUser');
+    }
+    return this._localStorage;
+  }
+
+  protected serverData(): Object {
+    return super.serverData().user;
   }
 }

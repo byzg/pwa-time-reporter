@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:8080/https://timer.kodep.ru/api'
+  API_URL: 'http://localhost:3000/api'
 };
