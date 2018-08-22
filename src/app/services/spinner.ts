@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class Spinner {
   isActive: boolean;
 
-  run(fn: Function) {
-
+  toggle() {
+    this.isActive = !this.isActive;
   }
 }

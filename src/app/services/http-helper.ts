@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { NotificationsService } from 'angular2-notifications';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import humps from 'humps';
@@ -17,7 +16,6 @@ class Request {
 
   constructor(
     private httpClient: HttpClient,
-    private notifications: NotificationsService,
     private method: string,
     private path: string,
     private rawData: Object,
@@ -40,12 +38,7 @@ class Request {
 
   response(): Promise<any> {
     return this.run().observableResponse.map(res => humps.camelizeKeys(res))
-      .toPromise()
-      .catch((reason) => {
-        if (reason.status >= 400) {
-          this.notifications.error(reason.statusText, reason.json().errors || 'Failure');
-        }
-      });
+      .toPromise();
   }
 
   getResponse(): Promise<any> {
@@ -70,8 +63,7 @@ export class HttpHelper {
 
   constructor(
     private httpClient: HttpClient,
-    private spinner: Spinner,
-    private notifications: NotificationsService
+    private spinner: Spinner
   ) {
   }
 
@@ -92,10 +84,14 @@ export class HttpHelper {
   }
 
   private async request(method, path, rawData, opts = {}): Promise<any> {
-    const request = new Request(this.httpClient, this.notifications, method, path, rawData, opts);
-    this.spinner.isActive = true;
-    const result: Promise<any> = await request.getResponse();
-    this.spinner.isActive = false;
-    return result;
+    const request = new Request(this.httpClient, method, path, rawData, opts);
+    this.spinner.toggle();
+    try {
+      return await request.getResponse();
+    } catch (reason) {
+      return Promise.reject(reason);
+    } finally {
+      this.spinner.toggle();
+    }
   }
 }

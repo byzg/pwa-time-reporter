@@ -139,11 +139,11 @@
   "defaultProject": "wishme-frontend",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
+      "prefix": "wsm",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": "wsm"
     }
   }
 }

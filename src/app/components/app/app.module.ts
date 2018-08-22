@@ -4,7 +4,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -22,6 +21,7 @@ import {
 import { Session } from '../../resourses/factories';
 
 import { AppComponent } from './app.component';
+import { SpinnerComponent } from '../spinner/spinner.component';
 import { LoginComponent } from '../../routes';
 
 export function sessionFactory() {
@@ -39,7 +39,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    SimpleNotificationsModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -52,6 +51,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     TPipe,
     AppComponent,
+    SpinnerComponent,
+
     LoginComponent
   ],
   providers: [

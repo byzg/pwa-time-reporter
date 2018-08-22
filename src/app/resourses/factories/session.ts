@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 // cimport Cookies from 'js-cookie';
 
 import { BaseFactory } from './base-factory';
@@ -27,11 +28,13 @@ export class Session extends BaseFactory {
   }
 
   create(): Promise<Session> {
-    return super.create().then(() => {
-      delete this.user.password;
-      this.localStorage.push(this.user);
-      return this;
-    });
+    return super.create()
+      .then(() => {
+        delete this.user.password;
+        this.localStorage.push(this.user);
+        return this;
+      })
+      .catch(reason => _.extend(this, reason.error));
   }
 
   destroy() {
@@ -48,6 +51,6 @@ export class Session extends BaseFactory {
   }
 
   protected serverData(): Object {
-    return super.serverData().user;
+    return this.user;
   }
 }
