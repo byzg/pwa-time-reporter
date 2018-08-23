@@ -1,5 +1,7 @@
 <div class="container" *ngIf="spinner.isActive">
-  <div class="sk-rotatePlane"></div>
+  <div class="sk-rotatePlane" *ngIf="spinner.isSkRotatePlane()"></div>
+
+  <div class="sb-admin" [hidden]="!spinner.isSbAdmin()" *ngFor="let i of [1, 2, 3, 4]"></div>
 </div>
 
 
