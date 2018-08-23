@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutRoutingModule } from './layout.routing';
 import { LayoutComponent } from './layout.component';
+import { WishesComponent } from '../../routes/wishes';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { LayoutComponent } from './layout.component';
   ],
   declarations: [
     LayoutComponent,
+    WishesComponent
   ]
 })
 export class LayoutModule { }

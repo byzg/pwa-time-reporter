@@ -22,7 +22,7 @@ export class Session extends BaseFactory {
   }
 
   isLoggedIn(): boolean {
-    return false;
+    return true;
     // const token: string = Cookies.get(tokenKey);
     // return token && token.length > 0;
   }
