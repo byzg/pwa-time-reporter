@@ -1,4 +1,4 @@
-.sb-admin {
+.spinner-item-sb-admin {
   display: inline-block;
   width: 6px;
   height: 30px;
@@ -6,7 +6,7 @@
   animation: sb-admin 1s ease-in-out infinite;
   &:nth-child(1) {
     background-color: #222;
-    animation-delay: 0;
+    animation-delay: 0s;
   }
   &:nth-child(2) {
     background-color: #222;
